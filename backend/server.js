@@ -15,7 +15,8 @@ const { cloudinaryConnect } = require("./config/cloudinary");
 const userRoutes = require("./routes/user");
 const profileRoutes = require("./routes/profile");
 const courseRoutes = require("./routes/course"); // ❌ Suppression des routes de paiement
-
+const examsRoute = require("./routes/examsRoute");
+const resportsRoute = require("./routes/reportsRoute");
 // middleware
 app.use(express.json()); // to parse json body
 app.use(cookieParser());
@@ -46,7 +47,8 @@ cloudinaryConnect();
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
-
+app.use("/api/v1/exams", examsRoute);
+app.use("/api/v1/reports", resportsRoute);
 // Default Route
 app.get("/", (req, res) => {
   res.send(`<div>

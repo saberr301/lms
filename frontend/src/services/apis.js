@@ -68,3 +68,22 @@ export const settingsEndpoints = {
   CHANGE_PASSWORD_API: BASE_URL + "/auth/changepassword",
   DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 };
+
+// examsApi
+export const examsEndpoints = {
+  ADD_EXAM_API: `${BASE_URL}/exams/add`,
+  GET_ALL_EXAMS_API: `${BASE_URL}/exams/get-all-exams`,
+  GET_EXAM_BY_ID_API: `${BASE_URL}/exams/get-exam-by-id`,
+  EDIT_EXAM_BY_ID_API: `${BASE_URL}/exams/edit-exam-by-id`,
+  DELETE_EXAM_BY_ID_API: `${BASE_URL}/exams/delete-exam-by-id`,
+  ADD_QUESTION_TO_EXAM_API: `${BASE_URL}/exams/add-question-to-exam`,
+  EDIT_QUESTION_BY_ID_API: `${BASE_URL}/exams/edit-question-in-exam`,
+  DELETE_QUESTION_BY_ID_API: `${BASE_URL}/exams/delete-question-in-exam`,
+};
+// reportsApi
+
+export const reportsEndpoints = {
+  ADD_REPORT_API: `${BASE_URL}/reports/add-report`,
+  GET_ALL_REPORTS_API: `${BASE_URL}/reports/get-all-reports`,
+  GET_ALL_REPORTS_BY_USER_API: `${BASE_URL}/reports/get-all-reports-by-user`,
+};

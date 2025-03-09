@@ -12,6 +12,6 @@ export const NavbarLinks = [
   },
   {
     title: "About Us",
-    path: "#",
+    path: "/quiz",
   },
 ];
