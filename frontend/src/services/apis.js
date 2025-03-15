@@ -39,6 +39,9 @@ export const courseEndpoints = {
     BASE_URL + "/course/getFullCourseDetails",
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
   CREATE_RATING_API: BASE_URL + "/course/createRating",
+  ADD_RESOURCE_API: BASE_URL + "/course/addResource",
+  DELETE_RESOURCE_API: BASE_URL + "/course/deleteResource",
+  GET_RESOURCES_API: BASE_URL + "/course/getResources",
 };
 
 // RATINGS AND REVIEWS
@@ -69,21 +72,8 @@ export const settingsEndpoints = {
   DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 };
 
-// examsApi
-export const examsEndpoints = {
-  ADD_EXAM_API: `${BASE_URL}/exams/add`,
-  GET_ALL_EXAMS_API: `${BASE_URL}/exams/get-all-exams`,
-  GET_EXAM_BY_ID_API: `${BASE_URL}/exams/get-exam-by-id`,
-  EDIT_EXAM_BY_ID_API: `${BASE_URL}/exams/edit-exam-by-id`,
-  DELETE_EXAM_BY_ID_API: `${BASE_URL}/exams/delete-exam-by-id`,
-  ADD_QUESTION_TO_EXAM_API: `${BASE_URL}/exams/add-question-to-exam`,
-  EDIT_QUESTION_BY_ID_API: `${BASE_URL}/exams/edit-question-in-exam`,
-  DELETE_QUESTION_BY_ID_API: `${BASE_URL}/exams/delete-question-in-exam`,
-};
-// reportsApi
-
-export const reportsEndpoints = {
-  ADD_REPORT_API: `${BASE_URL}/reports/add-report`,
-  GET_ALL_REPORTS_API: `${BASE_URL}/reports/get-all-reports`,
-  GET_ALL_REPORTS_BY_USER_API: `${BASE_URL}/reports/get-all-reports-by-user`,
+export const forumEndpoints = {
+  GET_MESSAGES_API: BASE_URL + "/forum/messages",
+  CREATE_MESSAGE_API: BASE_URL + "/forum/message",
+  DELETE_MESSAGE_API: BASE_URL + "/forum/message",
 };

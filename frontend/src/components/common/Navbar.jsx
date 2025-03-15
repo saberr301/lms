@@ -85,7 +85,7 @@ const Navbar = () => {
                 <div
                   className={`group relative flex cursor-pointer items-center gap-1 ${
                     matchRoute("/catalog/:catalogName")
-                      ? "bg-yellow-25 text-black rounded-xl p-1 px-3"
+                      ? "bg-blue-100 text-black rounded-xl p-1 px-3"
                       : "text-richblack-25 rounded-xl p-1 px-3"
                   }`}
                 >
@@ -97,7 +97,7 @@ const Navbar = () => {
                                                     flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible 
                                                     group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]"
                   >
-                    <div className="absolute left-[50%] top-0 z-[100] h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
+                    <div className="absolute left-[50%] top-0 z-[100] h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5 z-100"></div>
                     {loading ? (
                       <p className="text-center ">Loading...</p>
                     ) : subLinks.length ? (
@@ -108,7 +108,7 @@ const Navbar = () => {
                               .split(" ")
                               .join("-")
                               .toLowerCase()}`}
-                            className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                            className="rounded-lg bg-transparent py-4 pl-4 hover:bg-blue-25 "
                             key={i}
                           >
                             <p>{subLink.name}</p>
@@ -125,7 +125,7 @@ const Navbar = () => {
                   <p
                     className={`${
                       matchRoute(link?.path)
-                        ? "bg-yellow-25 text-black"
+                        ? "bg-blue-100 text-black"
                         : "text-richblack-25"
                     } rounded-xl p-1 px-3 `}
                   >
@@ -146,7 +146,7 @@ const Navbar = () => {
                 className={` px-[12px] py-[8px] text-richblack-100 rounded-md 
                                  ${
                                    matchRoute("/login")
-                                     ? "border-[2.5px] border-yellow-50"
+                                     ? "border-[2.5px] border-blue-100"
                                      : "border border-richblack-700 bg-richblack-800"
                                  } `}
               >

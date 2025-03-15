@@ -24,11 +24,13 @@ const CoursesPage = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-semibold mb-6">Tous les Cours</h1>
+      <h1 className="text-3xl font-semibold mb-10 text-white">
+        Tous les Cours
+      </h1>
       {loading ? (
         <p>Chargement...</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
           {courses.length > 0 ? (
             courses.map((course) => (
               <CourseCard

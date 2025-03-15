@@ -11,6 +11,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import { HiMenuAlt1 } from "react-icons/hi";
 
+// Nous allons utiliser ce composant pour afficher le forum de discussion
+
 export default function VideoDetailsSidebar({ setReviewModal }) {
   const [activeStatus, setActiveStatus] = useState(""); // store curr section id
   const [videoBarActive, setVideoBarActive] = useState(""); // store curr SubSection Id
@@ -78,12 +80,11 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
             {/* add review button */}
             <IconBtn
               text="Ajouter un avis"
-              // customClasses="ml-auto"
               onclick={() => setReviewModal(true)}
             />
           </div>
 
-          {/* course Name - total No Of Lectures*/}
+          {/* course Name - total No Of Lectures */}
           <div className="flex flex-col">
             <p>{courseEntireData?.courseName}</p>
             <p className="text-sm font-semibold text-richblack-500">
@@ -128,7 +129,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                     <div
                       className={`flex gap-3  px-5 py-2 ${
                         videoBarActive === topic._id
-                          ? "bg-yellow-200 font-semibold text-richblack-800"
+                          ? "bg-blue-200 font-semibold text-richblack-800"
                           : "hover:bg-richblack-900"
                       } `}
                       key={i}

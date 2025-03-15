@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from "react"
-import ReactStars from "react-rating-stars-component"
-import Img from './Img';
+import React, { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
+import Img from "./Img";
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react";
 // import SwiperCore, { Autoplay, FreeMode, Pagination } from 'swiper/core';
 // Import Swiper styles
-import "swiper/css"
-import "swiper/css/free-mode"
-import "swiper/css/pagination"
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 
 // Icons
-import { FaStar } from "react-icons/fa"
+import { FaStar } from "react-icons/fa";
 
 // Get apiFunction and the endpoint
 import { apiConnector } from "../../services/apiConnector";
-import { ratingsEndpoints } from "../../services/apis"
-
-
-
-
-
+import { ratingsEndpoints } from "../../services/apis";
 
 function ReviewSlider() {
-  const [reviews, setReviews] = useState(null)
-  const truncateWords = 15
+  const [reviews, setReviews] = useState(null);
+  const truncateWords = 15;
 
   useEffect(() => {
-    ; (async () => {
+    (async () => {
       const { data } = await apiConnector(
         "GET",
         ratingsEndpoints.REVIEWS_DETAILS_API
-      )
+      );
       if (data?.success) {
-        setReviews(data?.data)
+        setReviews(data?.data);
       }
-    })()
-  }, [])
+    })();
+  }, []);
 
-  
   // console.log('reviews= ', reviews)
-  if(!reviews) return;
-
+  if (!reviews) return;
 
   return (
     <div className="text-white">
@@ -96,9 +89,9 @@ function ReviewSlider() {
                   <p className="font-medium text-richblack-25">
                     {review?.review.split(" ").length > truncateWords
                       ? `${review?.review
-                        .split(" ")
-                        .slice(0, truncateWords)
-                        .join(" ")} ...`
+                          .split(" ")
+                          .slice(0, truncateWords)
+                          .join(" ")} ...`
                       : `${review?.review}`}
                   </p>
 
@@ -119,13 +112,13 @@ function ReviewSlider() {
                   </div>
                 </div>
               </SwiperSlide>
-            )
+            );
           })}
           {/* <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </div>
     </div>
-  )
+  );
 }
 
-export default ReviewSlider
+export default ReviewSlider;

@@ -51,7 +51,7 @@ export default function EditProfile() {
                 defaultValue={user?.firstName}
               />
               {errors.firstName && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
+                <span className="-mt-1 text-[12px] text-blue-200">
                   Veuillez saisir votre prénom.
                 </span>
               )}
@@ -71,7 +71,7 @@ export default function EditProfile() {
                 defaultValue={user?.lastName}
               />
               {errors.lastName && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
+                <span className="-mt-1 text-[12px] text-blue-200">
                   Veuillez saisir votre nom.
                 </span>
               )}
@@ -101,7 +101,7 @@ export default function EditProfile() {
                 defaultValue={user?.additionalDetails?.dateOfBirth}
               />
               {errors.dateOfBirth && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
+                <span className="-mt-1 text-[12px] text-blue-200">
                   {errors.dateOfBirth.message}
                 </span>
               )}
@@ -128,7 +128,7 @@ export default function EditProfile() {
                 })}
               </select>
               {errors.gender && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
+                <span className="-mt-1 text-[12px] text-blue-200">
                   Veuillez entrer votre date de naissance.
                 </span>
               )}
@@ -157,7 +157,7 @@ export default function EditProfile() {
                 defaultValue={user?.additionalDetails?.contactNumber}
               />
               {errors.contactNumber && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
+                <span className="-mt-1 text-[12px] text-blue-200">
                   {errors.contactNumber.message}
                 </span>
               )}

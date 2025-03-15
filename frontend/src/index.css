@@ -1,11 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-sora: "Sora", sans-serif;
+  --font-code: "Source Code Pro", monospace;
+  --font-grotesk: "Space Grotesk", sans-serif;
+  color-scheme: dark;
+}
 
 html,
 body {
   overflow-x: hidden;
   scroll-behavior: smooth;
+}
+html,
+body {
+  overflow-x: hidden; /* Empêche le scroll horizontal */
+  /* Permet le scroll vertical uniquement si nécessaire */
 }
 
 * {
@@ -14,7 +30,15 @@ body {
   box-sizing: border-box;
 }
 
-/* use in homePage */
+/* === Tailwind Base Styles === */
+@layer base {
+  body {
+    font-family: theme("fontFamily.sans");
+    @apply bg-n-8 text-n-1 text-base;
+  }
+}
+
+/* === Backgrounds === */
 .homepage_bg {
   background: url("./assets/Images/bghome.svg");
 }
@@ -32,14 +56,12 @@ body {
   color: transparent;
 }
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
+/* === Scrollbar Styling === */
 * {
   scrollbar-width: auto;
   scrollbar-color: #afb2bf;
 }
 
-/* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 7px;
 }
@@ -57,7 +79,7 @@ body {
   background-color: #767986f5;
 }
 
-/* loading spinner  */
+/* === Loading Spinner === */
 .custom-loader {
   width: 70px;
   height: 70px;
@@ -73,6 +95,7 @@ body {
   }
 }
 
+/* === Forms & Labels === */
 .lable-style {
   @apply text-[14px] text-richblack-5;
 }
@@ -85,20 +108,19 @@ body {
   @apply text-2xl font-bold text-richblack-5 lg:text-4xl;
 }
 
-/* Buttons */
+/* === Buttons === */
 .yellowButton {
-  @apply cursor-pointer rounded-md bg-yellow-50 px-[20px] py-[8px] font-semibold text-richblack-900 hover:bg-black hover:text-yellow-50 duration-300;
+  @apply cursor-pointer rounded-md bg-blue-100 px-[20px] py-[8px] font-semibold text-richblack-900 hover:bg-white hover:text-blue-100 duration-300;
 }
 
 .blackButton {
   @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5 hover:bg-richblack-5 hover:text-richblack-800 duration-300;
 }
 
-/* Loading skeleton */
+/* === Loading Skeleton === */
 .skeleton {
   position: relative;
   overflow: hidden;
-  background-color: #0a2955;
   background-color: rgb(44 51 63 / 1);
 }
 
@@ -126,9 +148,8 @@ body {
   }
 }
 
-/* used in Navbar */
+/* === Navbar Styles === */
 .top {
-  /* background: rgba(0, 0, 0, 0.25); */
   background: #222831a1;
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
@@ -148,59 +169,44 @@ body {
   background-color: rgba(17, 25, 40, 0.84);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
-
-  background-color: #111927;
 }
 
-/* used in code block component for background  */
-.code-block1-grad {
+/* === Code Block Background === */
+.code-block1-grad,
+.code-block2-grad {
   position: absolute;
   width: 372.95px;
   height: 257.05px;
   left: calc(50% - 372.95px / 2 - 16.53px);
   top: calc(50% - 257.05px / 2 - 17.47px);
+  opacity: 0.2;
+  filter: blur(34px);
+  transform: matrix(1, 0, -0.03, 1, 0, 0);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
 
+.code-block1-grad {
   background: linear-gradient(
     123.77deg,
     #8a2be2 -6.46%,
     #ffa500 59.04%,
     #f8f8ff 124.53%
   );
-  opacity: 0.2;
-  filter: blur(34px);
-  transform: matrix(1, 0, -0.03, 1, 0, 0);
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  z-index: 0;
 }
 
-/* code block 2 bg gradient */
 .code-block2-grad {
-  position: absolute;
-  width: 372.95px;
-  height: 257.05px;
-  left: calc(50% - 372.95px / 2 - 26.53px);
-  top: calc(50% - 257.05px / 2 - 17.47px);
-
   background: linear-gradient(
     118.19deg,
     #1fa2ff -3.62%,
     #12d8fa 50.44%,
     #a6ffcb 104.51%
   );
-  opacity: 0.2;
-  filter: blur(34px);
-  transform: matrix(1, 0, -0.03, 1, 0, 0);
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  z-index: 0;
 }
 
-/* code block card glass background */
+/* === Glass Effect for Cards === */
 .glass {
   background: rgba(255, 255, 255, 0);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -217,7 +223,54 @@ body {
   );
 }
 
-/* used in home.jsx - random background  */
-.opacity_layer_bg {
-  background: linear-gradient(180deg, rgba(4, 21, 45, 0) 0%, #04152d 79.17%);
+/* === Rotation Utility Classes === */
+@layer components {
+  .rotate-45 {
+    @apply rotate-[45deg];
+  }
+  .rotate-90 {
+    @apply rotate-[90deg];
+  }
+  .rotate-135 {
+    @apply rotate-[135deg];
+  }
+  .rotate-180 {
+    @apply rotate-[180deg];
+  }
+  .rotate-225 {
+    @apply rotate-[225deg];
+  }
+  .rotate-270 {
+    @apply rotate-[270deg];
+  }
+  .rotate-315 {
+    @apply rotate-[315deg];
+  }
+  .rotate-360 {
+    @apply rotate-[360deg];
+  }
+  .-rotate-45 {
+    @apply rotate-[-45deg];
+  }
+  .-rotate-90 {
+    @apply rotate-[-90deg];
+  }
+  .-rotate-135 {
+    @apply rotate-[-135deg];
+  }
+  .-rotate-180 {
+    @apply rotate-[-180deg];
+  }
+  .-rotate-225 {
+    @apply rotate-[-225deg];
+  }
+  .-rotate-270 {
+    @apply rotate-[-270deg];
+  }
+  .-rotate-315 {
+    @apply rotate-[-315deg];
+  }
+  .-rotate-360 {
+    @apply rotate-[-360deg];
+  }
 }

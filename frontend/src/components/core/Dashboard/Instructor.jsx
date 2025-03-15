@@ -67,7 +67,7 @@ export default function Instructor() {
           <div className="flex justify-between">
             <p className="text-lg font-bold text-richblack-5 pl-5">Vos cours</p>
             <Link to="/dashboard/my-courses">
-              <p className="text-xs font-semibold text-yellow-50 hover:underline pr-5">
+              <p className="text-xs font-semibold text-blue-100 hover:underline pr-5">
                 Tout afficher
               </p>
             </Link>
@@ -139,7 +139,7 @@ export default function Instructor() {
             <div className="flex items-center justify-between">
               <p className="text-lg font-bold text-richblack-5">Vos cours</p>
               <Link to="/dashboard/my-courses">
-                <p className="text-xs font-semibold text-yellow-50 hover:underline">
+                <p className="text-xs font-semibold text-blue-100 hover:underline">
                   Tout afficher
                 </p>
               </Link>
@@ -182,7 +182,7 @@ export default function Instructor() {
           </p>
 
           <Link to="/dashboard/add-course">
-            <p className="mt-1 text-center text-lg font-semibold text-yellow-50">
+            <p className="mt-1 text-center text-lg font-semibold text-blue-100">
               Créer un cour
             </p>
           </Link>

@@ -14,6 +14,11 @@ const {
   getInstructorCourses,
 } = require("../controllers/course");
 
+const {
+  addResource,
+  deleteResource,
+  getResources,
+} = require("../controllers/subSection");
 const { updateCourseProgress } = require("../controllers/courseProgress");
 const { enrollFreeCourse } = require("../controllers/inscription");
 
@@ -109,5 +114,10 @@ router.post("/getCategoryPageDetails", getCategoryPageDetails);
 router.post("/createRating", auth, isStudent, createRating);
 router.get("/getAverageRating", getAverageRating);
 router.get("/getReviews", getAllRatingReview);
+
+// Routes pour la gestion des ressources
+router.post("/addResource", auth, isInstructor, addResource);
+router.delete("/deleteResource", auth, isInstructor, deleteResource);
+router.get("/getResources/:subSectionId", auth, getResources);
 
 module.exports = router;

@@ -14,7 +14,6 @@ import CoursePage from "./pages/CoursesPage";
 import Navbar from "./components/common/Navbar";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import ProtectedRoute from "./components/core/Auth/ProtectedRoute";
-import quiz from "./pages/Quiz/common/Home/index";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Settings from "./components/core/Dashboard/Settings/Settings";
@@ -31,7 +30,7 @@ import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import { ACCOUNT_TYPE } from "./utils/constants";
 
 import { HiArrowNarrowUp } from "react-icons/hi";
-import Quiz from "./pages/Quiz/common/Home/index";
+import Hero from "./components/Hero";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -86,7 +85,7 @@ function App() {
         <Route path="catalog/:catalogName" element={<Catalog />} />
         <Route path="courses" element={<CoursePage />} />
         <Route path="courses/:courseId" element={<CourseDetails />} />
-
+        <Route path="/hero" element={<Hero />} />
         {/* Open Route - for Only Non Logged in User */}
 
         <Route
@@ -169,7 +168,6 @@ function App() {
             />
           )}
         </Route>
-        <Route path="/quiz" element={<Quiz />} />
         {/* Page Not Found (404 Page ) */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

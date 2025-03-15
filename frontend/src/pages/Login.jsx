@@ -1,15 +1,11 @@
 import loginImg from "../assets/Images/login.png";
-import Template from "../components/core/Auth/Template";
+import LoginForme from "../components/core/Auth/LoginForm";
 
 function Login() {
   return (
-    <Template
-      title="Welcome Back"
-      description1="Une formation pour améliorer vos compétences,"
-      description2="et booster votre carrière."
-      image={loginImg}
-      formType="login"
-    />
+    <div className="bg-blue-50">
+      <LoginForme />
+    </div>
   );
 }
 

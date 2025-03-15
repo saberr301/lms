@@ -27,6 +27,7 @@
     "react-hook-form": "^7.46.2",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
+    "react-just-parallax": "^3.1.16",
     "react-lazy-load-image-component": "^1.6.0",
     "react-markdown": "^9.0.0",
     "react-otp-input": "^3.0.4",

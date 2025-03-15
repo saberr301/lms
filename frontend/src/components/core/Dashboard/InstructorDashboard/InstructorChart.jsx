@@ -59,8 +59,8 @@ export default function InstructorChart({ courses }) {
           onClick={() => setCurrChart("students")}
           className={`rounded-sm p-1 px-3 transition-all duration-200 ${
             currChart === "students"
-              ? "bg-richblack-700 text-yellow-50"
-              : "text-yellow-400"
+              ? "bg-richblack-700 text-blue-100"
+              : "text-blue-400"
           }`}
         >
           Apprenants
@@ -78,9 +78,10 @@ export default function InstructorChart({ courses }) {
         </button>*/}
       </div>
 
-      <div className="relative mx-auto aspect-square h-full w-full">
+      <div className="relative m-auto w-full h-full ">
         {/* Render the Pie chart based on the selected chart */}
         <Pie
+          className="max-w-[500px] max-h-[400px]"
           data={currChart === "students" ? chartDataStudents : chartIncomeData}
           options={options}
         />

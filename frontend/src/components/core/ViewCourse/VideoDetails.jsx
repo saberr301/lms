@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { Tabs, Tab } from "./tab";
 import "video-react/dist/video-react.css";
 import { BigPlayButton, Player } from "video-react";
 
@@ -11,9 +11,9 @@ import { updateCompletedLectures } from "../../../slices/viewCourseSlice";
 import { setCourseViewSidebar } from "../../../slices/sidebarSlice";
 
 import IconBtn from "../../common/IconBtn";
-
+import ResourcesTab from "./ressourcesTab";
 import { HiMenuAlt1 } from "react-icons/hi";
-
+import CourseForum from "./CourseForum";
 const VideoDetails = () => {
   const { courseId, sectionId, subSectionId } = useParams();
 
@@ -31,6 +31,7 @@ const VideoDetails = () => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [activeTab, setActiveTab] = useState("content");
   useEffect(() => {
     (async () => {
       if (!courseSectionData.length) return;
@@ -263,8 +264,24 @@ const VideoDetails = () => {
         </Player>
       )}
 
-      <h1 className="mt-4 text-3xl font-semibold">{videoData?.title}</h1>
-      <p className="pt-2 pb-6">{videoData?.description}</p>
+      <div className="mt-8 ">
+        <Tabs activeTab={activeTab} onTabChange={setActiveTab}>
+          <Tab label="Contenu" value="content">
+            <div className="p-6 bg-richblack-800 rounded-lg">
+              <h2 className="text-xl font-bold text-richblack-5 mb-4">
+                À propos de la leçon
+              </h2>
+              <p className="text-richblack-200">{videoData?.description}</p>
+            </div>
+          </Tab>
+          <Tab label="Ressources" value="resources">
+            <ResourcesTab subSectionId={subSectionId} />
+          </Tab>
+          <Tab label="Q/R" value="Forum">
+            <CourseForum subsectionId={subSectionId} />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 };

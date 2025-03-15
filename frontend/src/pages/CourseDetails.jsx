@@ -156,7 +156,7 @@ function CourseDetails() {
               className="mb-5 lg:mt-10 lg:mb-0 z-[100]  "
               onClick={() => navigate(-1)}
             >
-              <GiReturnArrow className="w-10 h-10 text-yellow-100 hover:text-yellow-50 cursor-pointer" />
+              <GiReturnArrow className="w-10 h-10 text-blue-100 hover:text-blue-50 cursor-pointer" />
             </div>
 
             {/* will appear only for small size */}
@@ -178,7 +178,7 @@ function CourseDetails() {
               </p>
               <p className="text-richblack-200">{courseDescription}</p>
               <div className="text-md flex flex-wrap items-center gap-2">
-                <span className="text-yellow-25">{avgReviewCount}</span>
+                <span className="text-blue-50">{avgReviewCount}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
                 <span>{`(${ratingAndReviews.length} avis)`}</span>
                 <span>{`${studentsEnrolled.length} étudiants inscrits`}</span>
@@ -247,7 +247,7 @@ function CourseDetails() {
                 tag.map((item, ind) => (
                   <p
                     key={ind}
-                    className="bg-yellow-50 p-[2px] text-black rounded-full text-center font-semibold"
+                    className="bg-blue-100 p-[2px] text-black rounded-full text-center font-semibold"
                   >
                     {item}
                   </p>

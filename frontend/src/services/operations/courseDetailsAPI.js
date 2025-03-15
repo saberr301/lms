@@ -22,6 +22,9 @@ const {
   GET_FULL_COURSE_DETAILS_AUTHENTICATED,
   CREATE_RATING_API,
   LECTURE_COMPLETION_API,
+  GET_RESOURCES_API,
+  DELETE_RESOURCE_API,
+  ADD_RESOURCE_API,
 } = courseEndpoints;
 
 // ================ get All Courses ================
@@ -411,4 +414,70 @@ export const createRating = async (data, token) => {
   }
   toast.dismiss(toastId);
   return success;
+};
+
+export const addResource = async (data, token) => {
+  try {
+    const response = await apiConnector("POST", ADD_RESOURCE_API, data, {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    });
+    console.log("ADD RESOURCE API RESPONSE............", response);
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    toast.success("Resource Added Successfully");
+    return response.data;
+  } catch (error) {
+    console.log("ADD RESOURCE API ERROR............", error);
+    toast.error(error.message);
+    return false;
+  }
+};
+
+// Fonction pour supprimer une ressource d'une sous-section
+export const deleteResource = async (data, token) => {
+  try {
+    const response = await apiConnector("DELETE", DELETE_RESOURCE_API, data, {
+      Authorization: `Bearer ${token}`,
+    });
+    console.log("DELETE RESOURCE API RESPONSE............", response);
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    toast.success("Resource Deleted Successfully");
+    return response.data;
+  } catch (error) {
+    console.log("DELETE RESOURCE API ERROR............", error);
+    toast.error(error.message);
+    return false;
+  }
+};
+
+// Fonction pour récupérer les ressources d'une sous-section
+export const getResources = async (subSectionId, token) => {
+  // Vérifier si subSectionId est valide
+  if (!subSectionId || subSectionId === "undefined") {
+    console.log("Invalid subSectionId");
+    return { success: false, message: "Invalid subSectionId" };
+  }
+
+  try {
+    const response = await apiConnector(
+      "GET",
+      `${GET_RESOURCES_API}/${subSectionId}`,
+      null,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log("GET RESOURCES API RESPONSE............", response);
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (error) {
+    console.log("GET RESOURCES API ERROR............", error);
+    return { success: false, message: error.message };
+  }
 };

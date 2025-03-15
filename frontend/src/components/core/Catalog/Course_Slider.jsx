@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react"
-
+import React, { useEffect, useState } from "react";
 
 // Import Swiper styles
-import "swiper/css"
-import "swiper/css/free-mode"
-import "swiper/css/pagination"
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react";
 // import {  Pagination } from "swiper"
 
-import Course_Card from "./Course_Card"
-
-
+import Course_Card from "./Course_Card";
 
 function Course_Slider({ Courses }) {
   return (
@@ -44,7 +41,7 @@ function Course_Slider({ Courses }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default Course_Slider
+export default Course_Slider;
