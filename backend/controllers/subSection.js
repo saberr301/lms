@@ -32,7 +32,6 @@ exports.createSubSection = async (req, res) => {
       timeDuration: videoFileDetails.duration,
       description,
       videoUrl: videoFileDetails.secure_url,
-      resources: [],
     });
 
     // link subsection id to section
@@ -154,6 +153,9 @@ exports.deleteSubSection = async (req, res) => {
       "subSection"
     );
 
+    // In frontned we have to take care - when subsection is deleted we are sending ,
+    // only section data not full course details as we do in others
+
     // success response
     return res.json({
       success: true,
@@ -164,150 +166,100 @@ exports.deleteSubSection = async (req, res) => {
     console.error(error);
     return res.status(500).json({
       success: false,
+
       error: error.message,
       message: "An error occurred while deleting the SubSection",
     });
   }
 };
 
-// ================ Add Resource to SubSection ================
-exports.addResource = async (req, res) => {
+const cloudinary = require("cloudinary").v2;
+
+exports.uploadPDF = async (req, res) => {
   try {
-    const { subSectionId, resourceTitle, resourceDescription, resourceType } =
-      req.body;
+    console.log("📂 Requête reçue pour upload !");
 
-    // Validation
-    if (!subSectionId || !resourceTitle || !resourceType) {
-      return res.status(400).json({
-        success: false,
-        message: "SubSection ID, resource title and type are required",
-      });
+    if (!req.files || !req.files.pdf) {
+      console.log("❌ Aucune donnée reçue !");
+      return res
+        .status(400)
+        .json({ success: false, message: "Aucun fichier envoyé" });
     }
 
-    // Check for file
-    if (!req.files || !req.files.resourceFile) {
-      return res.status(400).json({
-        success: false,
-        message: "Resource file is required",
-      });
+    const { subSectionId } = req.body;
+    const pdfFile = req.files.pdf;
+
+    console.log("📂 Fichier reçu :", pdfFile.name);
+    console.log("📂 Type MIME :", pdfFile.mimetype);
+
+    if (!pdfFile.mimetype.includes("pdf")) {
+      console.log("❌ Format incorrect !");
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Seuls les fichiers PDF sont autorisés !",
+        });
     }
 
-    // Find the subsection
-    const subSection = await SubSection.findById(subSectionId);
-    if (!subSection) {
-      return res.status(404).json({
-        success: false,
-        message: "SubSection not found",
-      });
-    }
-
-    // Upload the resource file to cloudinary
-    const resourceFile = req.files.resourceFile;
-    const uploadDetails = await uploadImageToCloudinary(
-      resourceFile,
-      `${process.env.FOLDER_NAME}/resources`
+    // 🚀 Upload vers Cloudinary en tant que "raw" (fichier brut)
+    console.log("🚀 Upload en cours...");
+    const uploadResult = await cloudinary.uploader.upload(
+      pdfFile.tempFilePath,
+      {
+        resource_type: "raw",
+        folder: "EPBLearning/PDFs", // 📂 Stockage dans un dossier spécifique
+        public_id: pdfFile.name.split(".")[0], // 🔍 Garde un nom de fichier unique
+      }
     );
 
-    // Create resource object
-    const newResource = {
-      title: resourceTitle,
-      description: resourceDescription || "",
-      fileUrl: uploadDetails.secure_url,
-      fileType: resourceType,
-    };
-
-    // Add to subsection resources
-    subSection.resources.push(newResource);
-    await subSection.save();
-
-    // Return response
-    return res.status(200).json({
-      success: true,
-      data: subSection,
-      message: "Resource added successfully",
-    });
-  } catch (error) {
-    console.error("Error adding resource to subsection");
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-      message: "Error adding resource to subsection",
-    });
-  }
-};
-
-// ================ Delete Resource from SubSection ================
-exports.deleteResource = async (req, res) => {
-  try {
-    const { subSectionId, resourceId } = req.body;
-
-    // Validation
-    if (!subSectionId || !resourceId) {
-      return res.status(400).json({
-        success: false,
-        message: "SubSection ID and Resource ID are required",
-      });
+    if (!uploadResult.secure_url) {
+      console.log("❌ Échec de l'upload Cloudinary !");
+      return res
+        .status(500)
+        .json({ success: false, message: "Échec de l'upload" });
     }
 
-    // Find the subsection and update
+    console.log("✅ Upload réussi :", uploadResult.secure_url);
+
+    // 📂 Ajout du fichier dans la base de données
     const updatedSubSection = await SubSection.findByIdAndUpdate(
       subSectionId,
-      { $pull: { resources: { _id: resourceId } } },
+      {
+        $push: {
+          resources: { name: pdfFile.name, url: uploadResult.secure_url },
+        },
+      },
       { new: true }
     );
 
-    if (!updatedSubSection) {
-      return res.status(404).json({
-        success: false,
-        message: "SubSection not found",
-      });
-    }
-
-    // Return response
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       data: updatedSubSection,
-      message: "Resource deleted successfully",
+      message: "PDF téléversé avec succès",
     });
   } catch (error) {
-    console.error("Error deleting resource from subsection");
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-      message: "Error deleting resource from subsection",
-    });
+    console.error("❌ Erreur dans l'upload :", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Erreur interne du serveur" });
   }
 };
 
-// ================ Get Resources for SubSection ================
-exports.getResources = async (req, res) => {
+exports.getPDFs = async (req, res) => {
   try {
     const { subSectionId } = req.params;
-
-    // Find the subsection
     const subSection = await SubSection.findById(subSectionId);
+
     if (!subSection) {
-      return res.status(404).json({
-        success: false,
-        message: "SubSection not found",
-      });
+      return res
+        .status(404)
+        .json({ success: false, message: "Subsection not found" });
     }
 
-    // Return resources
-    return res.status(200).json({
-      success: true,
-      data: subSection.resources,
-      message: "Resources fetched successfully",
-    });
+    res.status(200).json({ success: true, resources: subSection.resources });
   } catch (error) {
-    console.error("Error fetching resources");
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-      message: "Error fetching resources",
-    });
+    console.log("Error retrieving PDFs:", error);
+    res.status(500).json({ success: false, message: "Error retrieving PDFs" });
   }
 };

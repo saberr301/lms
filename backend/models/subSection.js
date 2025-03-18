@@ -15,28 +15,10 @@ const subSectionSchema = new mongoose.Schema({
   },
   resources: [
     {
-      title: {
-        type: String,
-        required: true,
-      },
-      fileUrl: {
-        type: String,
-        required: true,
-      },
-      fileType: {
-        type: String,
-        enum: ["pdf", "image", "other"],
-        required: true,
-      },
-      description: {
-        type: String,
-      },
-      uploadedAt: {
-        type: Date,
-        default: Date.now,
-      },
+      name: { type: String },
+      url: { type: String },
     },
   ],
 });
-
-module.exports = mongoose.model("SubSection", subSectionSchema);
+module.exports =
+  mongoose.models.SubSection || mongoose.model("SubSection", subSectionSchema);

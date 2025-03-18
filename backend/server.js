@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const path = require("path");
 // packages
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
@@ -47,6 +47,7 @@ app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/forum", forumRoutes);
+
 // Default Route
 app.get("/", (req, res) => {
   res.send(`<div>

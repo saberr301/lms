@@ -11,7 +11,6 @@ import { updateCompletedLectures } from "../../../slices/viewCourseSlice";
 import { setCourseViewSidebar } from "../../../slices/sidebarSlice";
 
 import IconBtn from "../../common/IconBtn";
-import ResourcesTab from "./ressourcesTab";
 import { HiMenuAlt1 } from "react-icons/hi";
 import CourseForum from "./CourseForum";
 const VideoDetails = () => {
@@ -273,9 +272,6 @@ const VideoDetails = () => {
               </h2>
               <p className="text-richblack-200">{videoData?.description}</p>
             </div>
-          </Tab>
-          <Tab label="Ressources" value="resources">
-            <ResourcesTab subSectionId={subSectionId} />
           </Tab>
           <Tab label="Q/R" value="Forum">
             <CourseForum subsectionId={subSectionId} />

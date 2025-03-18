@@ -39,9 +39,9 @@ export const courseEndpoints = {
     BASE_URL + "/course/getFullCourseDetails",
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
   CREATE_RATING_API: BASE_URL + "/course/createRating",
-  ADD_RESOURCE_API: BASE_URL + "/course/addResource",
-  DELETE_RESOURCE_API: BASE_URL + "/course/deleteResource",
-  GET_RESOURCES_API: BASE_URL + "/course/getResources",
+
+  UPLOAD_PDF: BASE_URL + "/course/uploadPDF",
+  GET_PDFS: BASE_URL + "/course/getPDFs",
 };
 
 // RATINGS AND REVIEWS

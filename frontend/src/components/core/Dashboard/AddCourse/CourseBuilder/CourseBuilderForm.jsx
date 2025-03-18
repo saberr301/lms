@@ -1,108 +1,88 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { MdNavigateNext } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "react-hot-toast"
+import { IoAddCircleOutline } from "react-icons/io5"
+import { MdNavigateNext } from "react-icons/md"
+import { useDispatch, useSelector } from "react-redux"
 
-import {
-  createSection,
-  updateSection,
-} from "../../../../../services/operations/courseDetailsAPI";
-import {
-  setCourse,
-  setEditCourse,
-  setStep,
-} from "../../../../../slices/courseSlice";
+import { createSection, updateSection } from "../../../../../services/operations/courseDetailsAPI"
+import { setCourse, setEditCourse, setStep, } from "../../../../../slices/courseSlice"
 
-import IconBtn from "../../../../common/IconBtn";
-import NestedView from "./NestedView";
+import IconBtn from "../../../../common/IconBtn"
+import NestedView from "./NestedView"
+
+
+
 
 export default function CourseBuilderForm() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors }, } = useForm()
 
-  const { course } = useSelector((state) => state.course);
-  const { token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { course } = useSelector((state) => state.course)
+  const { token } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
-  const [loading, setLoading] = useState(false);
-  const [editSectionName, setEditSectionName] = useState(null); // stored section ID
+  const [loading, setLoading] = useState(false)
+  const [editSectionName, setEditSectionName] = useState(null) // stored section ID
 
   // handle form submission
   const onSubmit = async (data) => {
     // console.log("sent data ", data)
-    setLoading(true);
+    setLoading(true)
 
-    let result;
+    let result
 
     if (editSectionName) {
-      result = await updateSection(
-        {
-          sectionName: data.sectionName,
-          sectionId: editSectionName,
-          courseId: course._id,
-        },
-        token
-      );
+      result = await updateSection({ sectionName: data.sectionName, sectionId: editSectionName, courseId: course._id, }, token)
       // console.log("edit = ", result)
     } else {
       result = await createSection(
-        { sectionName: data.sectionName, courseId: course._id },
-        token
-      );
+        { sectionName: data.sectionName, courseId: course._id, }, token)
     }
     // console.log("section result = ", result)
     if (result) {
-      dispatch(setCourse(result));
-      setEditSectionName(null);
-      setValue("sectionName", "");
+      dispatch(setCourse(result))
+      setEditSectionName(null)
+      setValue("sectionName", "")
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   // cancel edit
   const cancelEdit = () => {
-    setEditSectionName(null);
-    setValue("sectionName", "");
-  };
+    setEditSectionName(null)
+    setValue("sectionName", "")
+  }
 
   // Change Edit SectionName
   const handleChangeEditSectionName = (sectionId, sectionName) => {
     if (editSectionName === sectionId) {
-      cancelEdit();
-      return;
+      cancelEdit()
+      return
     }
-    setEditSectionName(sectionId);
-    setValue("sectionName", sectionName);
-  };
+    setEditSectionName(sectionId)
+    setValue("sectionName", sectionName)
+  }
 
   // go To Next
   const goToNext = () => {
     if (course.courseContent.length === 0) {
-      toast.error("Please add atleast one section");
+      toast.error("Please add atleast one section")
       return;
     }
-    if (
-      course.courseContent.some((section) => section.subSection.length === 0)
-    ) {
-      toast.error("Please add atleast one lecture in each section");
+    if (course.courseContent.some((section) => section.subSection.length === 0)) {
+      toast.error("Please add atleast one lecture in each section")
       return;
     }
 
     // all set go ahead
-    dispatch(setStep(3));
-  };
+    dispatch(setStep(3))
+  }
 
   // go Back
   const goBack = () => {
-    dispatch(setStep(1));
-    dispatch(setEditCourse(true));
-  };
+    dispatch(setStep(1))
+    dispatch(setEditCourse(true))
+  }
 
   return (
     <div className="space-y-8 rounded-2xl border-[1px] border-richblack-700 bg-richblack-800 p-6">
@@ -112,7 +92,7 @@ export default function CourseBuilderForm() {
         {/* Section Name */}
         <div className="flex flex-col space-y-2">
           <label className="text-sm text-richblack-5" htmlFor="sectionName">
-            Nom de la section <sup className="text-pink-200">*</sup>
+            Section Name <sup className="text-pink-200">*</sup>
           </label>
           <input
             id="sectionName"
@@ -123,7 +103,7 @@ export default function CourseBuilderForm() {
           />
           {errors.sectionName && (
             <span className="ml-2 text-xs tracking-wide text-pink-200">
-              Le nom de la section est obligatoire
+              Section name is required
             </span>
           )}
         </div>
@@ -136,7 +116,7 @@ export default function CourseBuilderForm() {
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
           >
-            <IoAddCircleOutline size={20} className="text-blue-100" />
+            <IoAddCircleOutline size={20} className="text-yellow-50" />
           </IconBtn>
           {/* if editSectionName mode is on */}
           {editSectionName && (
@@ -171,5 +151,5 @@ export default function CourseBuilderForm() {
         </IconBtn>
       </div>
     </div>
-  );
+  )
 }
